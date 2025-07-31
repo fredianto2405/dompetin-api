@@ -1,0 +1,26 @@
+# go build outputs
+*.exe
+*.exe~
+*.out
+*.test
+*.o
+*.a
+
+# build directories
+/bin/
+/build/
+/dist/
+
+# editor settings
+.vscode/
+.idea/
+*.swp
+
+# environment
+.env
+
+# logs
+*.log
+
+# uploads
+/uploads
