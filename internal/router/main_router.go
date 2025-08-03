@@ -2,6 +2,7 @@ package router
 
 import (
 	"dompetin-api/internal/auth"
+	"dompetin-api/internal/category"
 	"dompetin-api/internal/user"
 	"dompetin-api/pkg/errors"
 	"github.com/gin-contrib/cors"
@@ -33,6 +34,13 @@ func SetupRouter(db *sqlx.DB) *gin.Engine {
 	authHandler := auth.NewHandler(authService, userService)
 	authGroup := r.Group("/api/v1/auth")
 	RegisterAuthRoutes(authGroup, authHandler)
+
+	// category routes
+	categoryRepo := category.NewRepository(db)
+	categoryService := category.NewService(categoryRepo)
+	categoryHandler := category.NewHandler(categoryService)
+	categoryGroup := r.Group("/api/v1/categories")
+	RegisterCategoryRoutes(categoryGroup, categoryHandler)
 
 	return r
 }

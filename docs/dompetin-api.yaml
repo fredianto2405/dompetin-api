@@ -1,0 +1,345 @@
+type: collection.insomnia.rest/5.0
+name: DompetIn API
+meta:
+  id: wrk_73a2125d84a3460f85340bfb49271efb
+  created: 1753966539232
+  modified: 1753966539232
+  description: ""
+collection:
+  - name: Authentication
+    meta:
+      id: fld_2eb7cce4c61e4c72b2dd9e43657fbf65
+      created: 1753966583837
+      modified: 1754124878975
+      sortKey: -1753966583837
+      description: ""
+    children:
+      - url: "{{ _.baseUrl }}/auth/register"
+        name: Register
+        meta:
+          id: req_2f401d137f094d47947ea4db0f8e10f0
+          created: 1753966588743
+          modified: 1754124886312
+          isPrivate: false
+          description: ""
+          sortKey: -1753966588743
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "assami@example.com",
+            	"password": "@Dompetin123",
+            	"confirm_password": "@Dompetin123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.baseUrl }}/auth/login"
+        name: Login
+        meta:
+          id: req_41c33fb9403e43b29ef4753b91623ceb
+          created: 1753966652792
+          modified: 1753977708146
+          isPrivate: false
+          description: ""
+          sortKey: -1753966652792
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "freddy@example.com",
+            	"password": "@Dompetin123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        scripts:
+          afterResponse: |-
+            const statusCode = insomnia.response.code;
+
+            if (statusCode === 200) {
+            	const jsonBody = insomnia.response.json();
+            	const token = jsonBody.data.access_token;
+            	const bearerToken = `Bearer ${token}`;
+            	insomnia.environment.set("access_token", bearerToken);
+            }
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Category
+    meta:
+      id: fld_3ca9ee55115b43e7a93b6f0029d3076c
+      created: 1753966714341
+      modified: 1753977732820
+      sortKey: -1753966714341
+      description: ""
+    children:
+      - url: "{{ _.baseUrl }}/categories"
+        name: Add Category
+        meta:
+          id: req_ca980ef399b44312bbdf4ea09306654c
+          created: 1753966763086
+          modified: 1753967220592
+          isPrivate: false
+          description: ""
+          sortKey: -1753966763086
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Makanan"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.baseUrl }}/categories"
+        name: Get All Category
+        meta:
+          id: req_98287e45a6404f939043ce5c60f74950
+          created: 1753966800483
+          modified: 1753977731509
+          isPrivate: false
+          description: ""
+          sortKey: -1753966800483
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.baseUrl }}/categories/1"
+        name: Edit Category
+        meta:
+          id: req_19acbe715cb648d0a98251cf4658d2f2
+          created: 1753966828276
+          modified: 1753967226776
+          isPrivate: false
+          description: ""
+          sortKey: -1753966828276
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Gaji"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.baseUrl }}/categories/1"
+        name: Delete Category
+        meta:
+          id: req_5ca24bceb9124a2c964e4b5695049711
+          created: 1753966872556
+          modified: 1753967229260
+          isPrivate: false
+          description: ""
+          sortKey: -1753966872556
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    scripts:
+      preRequest: "insomnia.request.addHeader({key: 'Authorization', value:
+        insomnia.environment.get(\"access_token\") });"
+  - name: Transaction
+    meta:
+      id: fld_907c31400e8640218024cd70ac3bb689
+      created: 1753966910280
+      modified: 1753967185810
+      sortKey: -1753966910280
+      description: ""
+    children:
+      - url: "{{ _.baseUrl }}/transactions"
+        name: Add Transaction
+        meta:
+          id: req_74a07fa26dc048779e94cab27769917c
+          created: 1753966931975
+          modified: 1753967232702
+          isPrivate: false
+          description: ""
+          sortKey: -1753966931975
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "type": "income",
+              "amount": 1500000,
+              "category": "Gaji",
+              "description": "Lorem ipsum sit dolor amet",
+              "transaction_date": "2025-07-30"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.baseUrl }}/transactions"
+        name: Transaction History
+        meta:
+          id: req_90aef8a8d7d2410980f488882042f42a
+          created: 1753966971745
+          modified: 1753967236220
+          isPrivate: false
+          description: ""
+          sortKey: -1753966971745
+        method: GET
+        parameters:
+          - id: pair_58e206f353e4461a8e09eeeb480bbd86
+            name: startDate
+            value: 2025-07-01
+            description: ""
+            disabled: false
+          - id: pair_54cd69f3328048a1a7aaf0c5acffc533
+            name: endDate
+            value: 2025-07-31
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.baseUrl }}/transactions/1"
+        name: Edit Transaction
+        meta:
+          id: req_ea250c6bbe9e4c9794ee151107868561
+          created: 1753967018905
+          modified: 1753967239057
+          isPrivate: false
+          description: ""
+          sortKey: -1753967018905
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "type": "expense",
+              "amount": 25000,
+              "category": "Makanan",
+              "description": "Lorem ipsum sit dolor amet",
+              "transaction_date": "2025-07-30"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.baseUrl }}/transactions/1"
+        name: Delete Transaction
+        meta:
+          id: req_59b5966178354952a0226fc3e124893c
+          created: 1753967048979
+          modified: 1753967241587
+          isPrivate: false
+          description: ""
+          sortKey: -1753967048979
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    scripts:
+      preRequest: "insomnia.request.addHeader({key: 'Authorization', value:
+        insomnia.environment.get(\"access_token\") });"
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_1d6612dc4e5ee4e85d3a64940838b5202ac1d912
+    created: 1753966539244
+    modified: 1754124878974
+environments:
+  name: Base Environment
+  meta:
+    id: env_1d6612dc4e5ee4e85d3a64940838b5202ac1d912
+    created: 1753966539242
+    modified: 1754124878975
+    isPrivate: false
+  data:
+    baseUrl: http://157.66.54.26:9002/api/v1
+    access_token: Bearer
+      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJmcmVkZHlAZXhhbXBsZS5jb20iLCJpc3MiOiJkb21wZXRpbiIsImV4cCI6MTc1NDIxMTI3OCwiaWF0IjoxNzU0MTI0ODc4fQ.bOGE1Us9db82AKzyxep4PLdZZuP1NxJzyRjJgKv8-hY
